@@ -43,5 +43,5 @@ jobs:
         run: docker build -f Application/dockerfile -t flask-app .
       - name: Push Docker image
         run: |
-            docker tag flask-app ${{ secrets.DOCKER_USERNAME }}/my-flask-app:latest
+            docker tag my-flask-app:latest ${{ secrets.DOCKER_USERNAME }}/my-flask-app:latest
             docker push ${{ secrets.DOCKER_USERNAME }}/my-flask-app:latest
