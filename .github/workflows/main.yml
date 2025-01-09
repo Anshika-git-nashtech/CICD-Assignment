@@ -40,8 +40,8 @@ jobs:
 
       - name: Push Docker image
         run: |
-            docker tag web-page ${{ secrets.DOCKER_USERNAME }}/my-web-page:latest
-            docker push ${{ secrets.DOCKER_USERNAME }}/my-web-page:latest
+            docker tag web-page ${{ secrets.DOCKER_USERNAME }}/web-page:latest
+            docker push ${{ secrets.DOCKER_USERNAME }}/web-page:latest
 
      
 
