@@ -1,4 +1,5 @@
 name: CI/CD Pipeline
+ 
 on:
   push:
     branches:
@@ -6,17 +7,20 @@ on:
   pull_request:
     branches:
       - main
+ 
 jobs:
   build:
-    runs-on: ubuntu latest
+    runs-on: ubuntu-latest
+ 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+ 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.9'
+ 
       - name: Install dependencies
         run: |
           set +e
@@ -24,17 +28,18 @@ jobs:
           ls -la
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+ 
       # - name: Run tests
-      #  run: |
-      #   pytest
-     - name: Log in to Docker Hub
-       uses: docker/login-action@v2
-       with:
+      #   run: |
+      #     pytest
+ 
+      -  name: Log in to Docker Hub
+         uses: docker/login-action@v2
+         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          
+ 
       - name: Build Docker image
-        run: docker build -f Application/dockerfile -t my-flask-app:${{ github.sha }} .
+        run: docker build -f Flask_Application/dockerfile -t my-flask-app:${{ github.sha }} .
       - name: Push Docker image
         run: docker push my-flask-app:${{ github.sha }}
- 
