@@ -29,10 +29,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirement.txt
  
-      # - name: Run tests
-      #   run: |
-      #     pytest
- 
       -  name: Log in to Docker Hub
          uses: docker/login-action@v2
          with:
@@ -40,9 +36,13 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
  
       - name: Build Docker image
-        run: docker build -f Application/dockerfile -t flask-app .
-        
+        run: docker build -t flask-app .
+
       - name: Push Docker image
         run: |
             docker tag flask-app ${{ secrets.DOCKER_USERNAME }}/my-flask-app:latest
             docker push ${{ secrets.DOCKER_USERNAME }}/my-flask-app:latest
+
+
+          
+ 
